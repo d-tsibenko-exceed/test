@@ -1,0 +1,6 @@
+.popup {
+    position: absolute;
+    height: 500px;
+    width: 500px;
+    background: #fff;
+}

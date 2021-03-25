@@ -1,0 +1,12 @@
+.carousel {
+    padding-top: 30px;
+    min-width: 100%;
+    margin: 0 auto;
+    height:370px;
+}
+
+.carousel__img {
+    min-width: 100%;
+
+}
+

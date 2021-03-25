@@ -1,23 +1,25 @@
-import logo from './logo.svg';
+import Header from "./components/Header/Header";
+import Slider from "./components/Carousel/Carousel";
 import './App.css';
+import MovieBlock from "./components/MovieBlock/MovieBlock";
+import Footer from "./components/Footer/Footer";
+import WatchMoviePage from "./components/WatchMoviePage/WatchMoviePage";
+import {Route} from "react-router";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <Route exact path="/">
+            <Header />
+            <Slider/>
+            <MovieBlock />
+            <Footer/>
+        </Route>
+        <Route exact path="/movies">
+            <Header/>
+            <WatchMoviePage />
+        </Route>
+
     </div>
   );
 }
