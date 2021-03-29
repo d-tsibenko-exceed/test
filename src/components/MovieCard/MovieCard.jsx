@@ -7,6 +7,9 @@ import {CardHeader, IconButton, Typography} from "@material-ui/core";
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import axios from "axios";
 import EditMoviePopup from "../EditMoviePopup/EditMoviePopup";
+import {Link} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router";
+import WatchMoviePage from "../WatchMoviePage/WatchMoviePage";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -35,20 +38,26 @@ const MovieCard = ({ image, title, id , togglePopup, setTogglePopup, showPopup})
         axios.delete(`http://localhost:3001/posts/${id}`)
     }
 
-
     return (
         <div className={classes.root}>
             <Card>
                 <div>
                     <button onClick={() => showPopup(id)}>edit</button>
-                    <button onClick={() => deleteItem(id)}>delete</button>
+                    <button onClick={() => deleteItem(id) & setTimeout(() => alert(`Файл ${title} удалён!`), 1000)}>delete</button>
                 </div>
-                <CardMedia
-                    className={classes.media}
-                    image={image}
-                    title="Paella dish"
-                    onClick={() => console.log(id)}
-                />
+                <Link to={`/movies/${title}`}>
+                    <CardMedia
+                        className={classes.media}
+                        image={image}
+                        title="Paella dish"
+                        draggable={true}
+
+                    />
+                </Link>
+
+                <Switch>
+                    <Route path="/movies/:id" children={<WatchMoviePage />} />
+                </Switch>
             </Card>
             <div>
                 <p className={classes.title}>{title}</p>

@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import './EditMoviePopup.css'
 import axios from "axios";
 
-const EditMoviePopup = ({ movieId }) => {
+const EditMoviePopup = ({ movieId, title }) => {
     const [editTitle, setEditTitle] = useState('')
     const [editImg, setEditImg] = useState('')
-
+    console.log(title)
     const editImageHandler = (e) => {
         const reader = new FileReader();
         reader.onload = () =>{
@@ -33,7 +33,7 @@ const EditMoviePopup = ({ movieId }) => {
             <div className="inputs">
                 <input type="text" value={editTitle} onChange={inputEditTitleHandler} />
                 <input type="file" accept="image/*" name="image-upload" id="input" onChange={editImageHandler}  />
-                <button onClick={() => editItem(editTitle)} type="submit">submit</button>
+                <button onClick={() => editItem(editTitle) & setTimeout(() => alert(`Файл изменён на ${editTitle}!`), 1000)} type="submit">submit</button>
             </div>
 
         </div>

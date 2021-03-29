@@ -3,27 +3,25 @@ import MovieCard from "../MovieCard/MovieCard";
 import './MovieBlock.css';
 import {Button, Grid, Paper, TextField} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
-import {Link} from "react-router-dom";
 import AddMoviePopup from "../AddMoviePopup/AddMoviePopup";
 import db from '../../db.json';
 import EditMoviePopup from "../EditMoviePopup/EditMoviePopup";
 
 
+
 const MovieBlock = () => {
     const [movieId, setMovieId] = useState(null)
     const [togglePopup, setTogglePopup] = useState(false)
+    const [title, setTitle] = useState('')
+
 
     const showPopup = (id) => {
         setTogglePopup(!togglePopup)
         setMovieId(id)
     }
 
-    console.log(movieId)
 
-
-
-    console.log(db.posts)
-    const title = ['Рекомендуем вам посмотреть', 'Фильмы, основанные на реальных событиях',
+    const categories = ['Рекомендуем вам посмотреть', 'Фильмы, основанные на реальных событиях',
         'Мультфильмы для всех возрастов',
         'Самое интересное',
         'Популярные сериалы',
@@ -41,15 +39,23 @@ const MovieBlock = () => {
         },
     }));
 
+
+
     const classes = useStyles();
     return (
         <div>
-            {togglePopup && <EditMoviePopup movieId={movieId} />}
+
+            {togglePopup && <EditMoviePopup
+                title={title}
+                movieId={movieId} />}
             <div className="movie__block">
-                <AddMoviePopup />
+                <AddMoviePopup
+                    title={title}
+                    setTitle={setTitle}
+                />
 
 
-                {title.map(item => {
+                {categories.map(item => {
                     return <div>
                         <div className={classes.root}>
                             <p className={classes.title}>{item}</p>
@@ -57,7 +63,8 @@ const MovieBlock = () => {
                         <Grid container spacing={3}>
                             {db.posts.map(card =>
                                 <Grid item>
-                                    <div>
+                                    <div
+                                    draggable={true}>
                                         <MovieCard
                                             image={card.img}
                                             title={card.title}

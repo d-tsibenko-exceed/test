@@ -35,11 +35,11 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const AddMoviePopup = () => {
+const AddMoviePopup = ({ title, setTitle }) => {
     const classes = useStyles();
     const [modalStyle] = useState(getModalStyle);
     const [open, setOpen] = useState(false);
-    const [title, setTitle] = useState('')
+
     const [img, setImg] = useState('')
 
     const imageHandler = (e) => {
@@ -64,16 +64,21 @@ const AddMoviePopup = () => {
 
     function inputTitleHandler(e) {
         setTitle(e.target.value)
+        console.log(title.length)
     }
 
     const addItem = (e) => {
         e.preventDefault()
-        axios.post('http://localhost:3001/posts', {
-            id: Date.now(),
-            title: title,
-            author: "typicode",
-            img: img
-        })
+        if (title.length > 0) {
+            axios.post('http://localhost:3001/posts', {
+                id: Date.now(),
+                title: title,
+                author: "typicode",
+                img: img
+            })
+        } else {
+            alert('Введите что-нибудь')
+        }
     }
 
 
@@ -100,7 +105,7 @@ const AddMoviePopup = () => {
                         изображение
                         <form>
                             <TextField type="file" accept="image/*" name="image-upload" id="input" onChange={imageHandler}  />
-                            <button onClick={(e) => addItem(e)}>submit</button>
+                            <button onClick={(e) => addItem(e) & setTimeout(() => alert(`Файл ${title} добавлен!`), 1000)}>submit</button>
                         </form>
                     </div>
 
