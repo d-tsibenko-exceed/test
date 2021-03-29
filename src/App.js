@@ -5,6 +5,8 @@ import MovieBlock from "./components/MovieBlock/MovieBlock";
 import Footer from "./components/Footer/Footer";
 import WatchMoviePage from "./components/WatchMoviePage/WatchMoviePage";
 import {Route} from "react-router";
+import AddMoviePopup from "./components/AddMoviePopup/AddMoviePopup";
+import EditMoviePopup from "./components/EditMoviePopup/EditMoviePopup";
 
 function App() {
   return (

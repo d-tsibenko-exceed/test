@@ -1,10 +1,12 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import './MovieCard.css';
 import {CardHeader, IconButton, Typography} from "@material-ui/core";
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import axios from "axios";
+import EditMoviePopup from "../EditMoviePopup/EditMoviePopup";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -27,30 +29,27 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const MovieCard = ({ name }) => {
-    const exitBtn = useRef(null)
-    const onButtonClick = () => {
-        alert('clicked')
-    }
+const MovieCard = ({ image, title, id }) => {
     const classes = useStyles();
+    const deleteItem = (id) => {
+        axios.delete(`http://localhost:3001/posts/${id}`)
+    }
+
     return (
         <div className={classes.root}>
             <Card>
-                <CardHeader
-                action={
-                    <IconButton aria-label="close">
-                        <HighlightOffIcon onClick={() => onButtonClick()} ref={exitBtn}  />
-                    </IconButton>
-                }
-                />
+                <div>
+                    <button>edit</button>
+                    <button onClick={() => deleteItem(id)}>delete</button>
+                </div>
                 <CardMedia
                     className={classes.media}
-                    image="https://cdn.wallpapersafari.com/63/4/74KiN5.jpg"
+                    image={image}
                     title="Paella dish"
                 />
             </Card>
             <div>
-                <p className={classes.title}>{name.name}</p>
+                <p className={classes.title}>{title}</p>
             </div>
         </div>
     )

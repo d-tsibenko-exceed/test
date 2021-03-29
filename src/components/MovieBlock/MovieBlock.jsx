@@ -3,37 +3,23 @@ import MovieCard from "../MovieCard/MovieCard";
 import './MovieBlock.css';
 import {Button, Grid, Paper, TextField} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
-import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
+import AddMoviePopup from "../AddMoviePopup/AddMoviePopup";
+import db from '../../db.json';
+import EditMoviePopup from "../EditMoviePopup/EditMoviePopup";
 
 
 const MovieBlock = () => {
-    const [popup, setPopup] = useState(false);
-    const addMoviePopup = () => {
-        setPopup(!popup)
-    }
-    const dispatch = useDispatch();
-    const movies = useSelector(state => state.movies.movies)
-    console.log(movies)
+    const [movieId, setMovieId] = useState(null)
 
-    const addMovie = (name) => {
-        const movie = {
-            name,
-            id: Date.now()
-        }
-        dispatch({
-            type: 'ADD_MOVIE',
-            payload: movie
-        })
+    const [togglePopup, setTogglePopup] = useState(true)
+
+    const showPopup = () => {
+        setTogglePopup(togglePopup)
     }
 
-    const removeMovie = (movie) => {
-        dispatch({
-            type: 'REMOVE_MOVIE',
-            payload: movie.id
-        })
-    }
 
+    console.log(db.posts)
     const title = ['Рекомендуем вам посмотреть', 'Фильмы, основанные на реальных событиях',
         'Мультфильмы для всех возрастов',
         'Самое интересное',
@@ -54,37 +40,40 @@ const MovieBlock = () => {
 
     const classes = useStyles();
     return (
-        <div className="movie__block">
+        <div>
+
+            <div className="movie__block">
+                <AddMoviePopup />
+                {togglePopup && <EditMoviePopup/>}
+
                 {title.map(item => {
                     return <div>
                         <div className={classes.root}>
                             <p className={classes.title}>{item}</p>
-                            <Button onClick={() => addMovie(prompt())} variant="contained">+</Button>
-
-
                         </div>
                         <Grid container spacing={3}>
-                            {movies.length > 0
-                                ? movies.map(movie => {
-                                    return <Grid item >
-                                        <div>
-                                            <Link to="/movies">
-                                                <MovieCard name={movie} />
-                                            </Link>
-                                        </div>
+                            {db.posts.map(card =>
+                                <Grid item>
+                                    <div>
+                                        <MovieCard
+                                            image={card.img}
+                                            title={card.title}
+                                            id={card.id}
+                                        />
+                                    </div>
+                                </Grid>
+                            )}
 
-                                    </Grid>
 
-                                })
-                                : 'Nothing here'
-                            }
 
                         </Grid>
 
                     </div>
                 })}
-            }
+                }
+            </div>
         </div>
+
     )
 }
 
