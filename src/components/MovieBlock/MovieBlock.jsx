@@ -11,12 +11,15 @@ import EditMoviePopup from "../EditMoviePopup/EditMoviePopup";
 
 const MovieBlock = () => {
     const [movieId, setMovieId] = useState(null)
+    const [togglePopup, setTogglePopup] = useState(false)
 
-    const [togglePopup, setTogglePopup] = useState(true)
-
-    const showPopup = () => {
-        setTogglePopup(togglePopup)
+    const showPopup = (id) => {
+        setTogglePopup(!togglePopup)
+        setMovieId(id)
     }
+
+    console.log(movieId)
+
 
 
     console.log(db.posts)
@@ -41,10 +44,10 @@ const MovieBlock = () => {
     const classes = useStyles();
     return (
         <div>
-
+            {togglePopup && <EditMoviePopup movieId={movieId} />}
             <div className="movie__block">
                 <AddMoviePopup />
-                {togglePopup && <EditMoviePopup/>}
+
 
                 {title.map(item => {
                     return <div>
@@ -59,6 +62,9 @@ const MovieBlock = () => {
                                             image={card.img}
                                             title={card.title}
                                             id={card.id}
+                                            togglePopup={togglePopup}
+                                            setTogglePopup={setTogglePopup}
+                                            showPopup={showPopup}
                                         />
                                     </div>
                                 </Grid>

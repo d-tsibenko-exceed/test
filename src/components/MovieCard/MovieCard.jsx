@@ -29,23 +29,25 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const MovieCard = ({ image, title, id }) => {
+const MovieCard = ({ image, title, id , togglePopup, setTogglePopup, showPopup}) => {
     const classes = useStyles();
     const deleteItem = (id) => {
         axios.delete(`http://localhost:3001/posts/${id}`)
     }
 
+
     return (
         <div className={classes.root}>
             <Card>
                 <div>
-                    <button>edit</button>
+                    <button onClick={() => showPopup(id)}>edit</button>
                     <button onClick={() => deleteItem(id)}>delete</button>
                 </div>
                 <CardMedia
                     className={classes.media}
                     image={image}
                     title="Paella dish"
+                    onClick={() => console.log(id)}
                 />
             </Card>
             <div>

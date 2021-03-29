@@ -1,68 +1,41 @@
 import React, {useState} from 'react';
-import {Button, makeStyles, Modal, TextField} from "@material-ui/core";
+import './EditMoviePopup.css'
+import axios from "axios";
 
-function rand() {
-    return Math.round(Math.random() * 20) - 10;
-}
+const EditMoviePopup = ({ movieId }) => {
+    const [editTitle, setEditTitle] = useState('')
+    const [editImg, setEditImg] = useState('')
 
-function getModalStyle() {
-    const top = 50 + rand();
-    const left = 50 + rand();
-    return {
-        top: `${top}%`,
-        left: `${left}%`,
-        transform: `translate(-${top}%, -${left}%)`,
-    };
-}
-
-const useStyles = makeStyles(theme => ({
-    modal: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    paper: {
-        position: 'absolute',
-        width: 450,
-        backgroundColor: theme.palette.background.paper,
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
-    },
-    input: {
-
+    const editImageHandler = (e) => {
+        const reader = new FileReader();
+        reader.onload = () =>{
+            if(reader.readyState === 2){
+                setEditImg(reader.result)
+            }
+        }
+        reader.readAsDataURL(e.target.files[0])
     }
-}));
 
-const EditMoviePopup = () => {
-    const classes = useStyles();
-    const [modalStyle] = useState(getModalStyle);
+    const inputEditTitleHandler = (e) => {
+        setEditTitle(e.target.value)
+    }
+
+    const editItem = () => {
+        axios.patch(`http://localhost:3001/posts/${movieId}`, {
+            title: editTitle,
+            img: editImg
+        })
+    }
 
     return (
-        <div>
-            <Modal
-                aria-labelledby="simple-modal-title"
-                aria-describedby="simple-modal-description"
-            >
-                <div style={modalStyle} className={classes.paper}>
-                    Edit
-                    <div className="input">
-                        название фильма
-                        <form>
-                            <TextField type="text" />
-                        </form>
-                    </div>
-                    <div className="input">
-                        изображение
-                        <form>
-                            <TextField type="file" accept="image/*" name="image-upload" id="input"  />
-                            <button>submit</button>
-                        </form>
-                    </div>
+        <div className="popup">
+            <h1>Редактирование</h1>
+            <div className="inputs">
+                <input type="text" value={editTitle} onChange={inputEditTitleHandler} />
+                <input type="file" accept="image/*" name="image-upload" id="input" onChange={editImageHandler}  />
+                <button onClick={() => editItem(editTitle)} type="submit">submit</button>
+            </div>
 
-
-
-                </div>
-            </Modal>
         </div>
     )
 }
