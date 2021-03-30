@@ -50,7 +50,6 @@ const MovieBlock = () => {
 
     const dragOverHandler = (e) => {
         e.preventDefault()
-        e.target.style.background = 'lightgray'
     }
 
     const dropHandler = (e, card) => {
@@ -65,15 +64,6 @@ const MovieBlock = () => {
             }
             return c;
         }))
-        e.target.style.background = 'white'
-
-      //  setCardList(cardList.map(c => {
-      //      if (c.id === card.id) {
-     //           console.log(c.id , card.id)
-      //      }
-      //      return c;
-     //   }))
-
     }
 
     const sortCards = (a, b) => {
@@ -87,7 +77,6 @@ const MovieBlock = () => {
     const classes = useStyles();
     return (
         <div>
-
             {togglePopup && <EditMoviePopup
                 title={title}
                 movieId={movieId} />}
@@ -105,10 +94,8 @@ const MovieBlock = () => {
                         </div>
                         <Grid container spacing={3}>
                             {cardList.sort(sortCards).map(card => {
-                                // console.log(card, 'vdffd');
-
-                                // <Grid item>
-                                return <div
+                                return <Grid item>
+                                    <div
                                     draggable={true}
                                     onDragStart={(e) => dragStartHandler(e, card)}
                                     onDragOver={(e) => dragOverHandler(e)}
@@ -123,7 +110,7 @@ const MovieBlock = () => {
                                         showPopup={showPopup}
                                     />
                                 </div>
-                                //  </Grid>
+                                </Grid>
                             })}
                         </Grid>
 

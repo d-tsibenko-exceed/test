@@ -6,12 +6,14 @@ import Footer from "./components/Footer/Footer";
 import WatchMoviePage from "./components/WatchMoviePage/WatchMoviePage";
 import {Route} from "react-router";
 import React from "react";
+import HeaderMobile from "./components/Header/HeaderMobile";
 
 function App() {
   return (
     <div className="App">
         <Route exact path="/">
             <Header />
+            <HeaderMobile />
             <Slider/>
             <MovieBlock />
             <Footer/>

@@ -8,7 +8,6 @@ import {Link} from "react-router-dom";
 
 const Header = () => {
 
-    const categories = ['Главная', 'Фильмы','Сериалы','Мультфильмы','TV','Спорт']
     return (
         <div className="header">
             <div className="header__container">

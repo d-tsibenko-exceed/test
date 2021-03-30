@@ -13,7 +13,7 @@ const Slider = () => {
 
     return (
         <Grid justify={"center"} container>
-            <Grid item lg={10} md={10}>
+            <Grid item lg={10} md={10} xs={10}>
                 <Carousel className="carousel">
                     {
                         items.map( (item, i) => <Item key={i} item={item} /> )
@@ -28,7 +28,7 @@ const Slider = () => {
 function Item(props)
 {
     return (
-        <Grid item lg={12}>
+        <Grid item >
             <Paper>
                 <img className="carousel__img" src={props.item.img} alt="poster"/>
             </Paper>
