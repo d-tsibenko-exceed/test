@@ -1,10 +1,11 @@
 import React from "react"
 import "./WatchMoviePage.css"
-import ReactPlayer from "react-player"
 import { useParams } from "react-router"
+import VideoPlayer from "./VideoPlayer/VideoPlayer"
 
 const WatchMoviePage = () => {
   const { id } = useParams()
+  // eslint-disable-next-line no-unused-vars
 
   return (
     <div className="movie__page">
@@ -17,11 +18,9 @@ const WatchMoviePage = () => {
           2020-2021, Россия, Драмы, Исторические, Русские 1 сезон, новые серии
           завтра Актёры:
         </div>
-
         <div className="movie__page_playerBlock">
-          <div className="movie__page_player">
-            <ReactPlayer url="https://www.youtube.com/watch?v=5qap5aO4i9A" />
-          </div>
+          <VideoPlayer />
+          <div className="movie__page_player" />
         </div>
       </div>
     </div>

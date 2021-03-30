@@ -1,0 +1,23 @@
+.video__container {
+    width: 800px;
+}
+
+#video {
+    width: 100%;
+}
+
+.video-track {
+    height: 5px;
+    width: 100%;
+    background: #b6b6b6;
+}
+
+.timeline {
+    height: 5px;
+    width: 0;
+    background: #58b4ff;
+}
+
+.buttons {
+    padding: 5px 0;
+}
